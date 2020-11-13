@@ -22,8 +22,12 @@
 
             <div class="py-5">
                 <label for="name">Who's the lucky person?</label>
-                <input v-model="item.name" id="name" name="name">
+                <input required v-model="item.name" id="name" name="name">
             </div>
+
+            <button v-on:click="addItem" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add to Order
+            </button>
     </div>
 </template>
 
@@ -58,6 +62,11 @@
                     }
                 ,
 
+            }
+        },
+        methods: {
+            addItem: function(){
+                this.$emit('itemAdded',this.item)
             }
         },
         computed: {

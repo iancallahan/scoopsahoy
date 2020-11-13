@@ -1937,6 +1937,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1980,6 +1984,11 @@ __webpack_require__.r(__webpack_exports__);
         name: ''
       }
     };
+  },
+  methods: {
+    addItem: function addItem() {
+      this.$emit('itemAdded', this.item);
+    }
   },
   computed: {
     max_scoops: function max_scoops() {
@@ -19814,7 +19823,7 @@ var render = function() {
             expression: "item.name"
           }
         ],
-        attrs: { id: "name", name: "name" },
+        attrs: { required: "", id: "name", name: "name" },
         domProps: { value: _vm.item.name },
         on: {
           input: function($event) {
@@ -19825,7 +19834,17 @@ var render = function() {
           }
         }
       })
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+        on: { click: _vm.addItem }
+      },
+      [_vm._v("\n            Add to Order\n        ")]
+    )
   ])
 }
 var staticRenderFns = []
