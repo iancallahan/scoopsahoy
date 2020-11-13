@@ -1987,13 +1987,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addItem: function addItem() {
-      this.$emit('itemAdded', this.item);
+      this.$emit('item-added', this.item);
+      this.rockyroad = 0, this.cookiesandcream = 0, this.vanilla = 0, this.chocolate = 0, this.sprinkles = 0, this.caramel = 0, this.eminems = 0, this.cherries = 0, this.cone = false, this.name = '';
     }
   },
   computed: {
     max_scoops: function max_scoops() {
       var scoops = this.item.rockyroad + this.item.cookiesandcream + this.item.vanilla + this.item.chocolate;
-      console.log(scoops);
 
       if (3 - scoops < 0) {
         return 0;
@@ -2027,6 +2027,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2034,8 +2048,24 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       order_name: '',
-      order_items: []
+      order_email: '',
+      order_items: [],
+      addingItem: false
     };
+  },
+  methods: {
+    addItem: function addItem(item) {
+      this.order_items.push(item);
+      this.addingItem = false;
+    },
+    submitOrder: function submitOrder() {
+      var order = {
+        'order_name': this.order_name,
+        'order_email': this.order_email,
+        'order_items': this.order_items
+      };
+      axios.post('/order', order);
+    }
   }
 });
 
@@ -19870,11 +19900,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex flex-col h-screen" }, [
-    _c("header", { staticClass: "py-5" }, [_vm._t("default")], 2),
+    _c("header", { staticClass: "py-5 bg-red-100" }, [_vm._t("default")], 2),
     _vm._v(" "),
-    _c("div", { staticClass: "flex-1" }, [_c("add-item")], 1),
-    _vm._v(" "),
-    _c("footer", { staticClass: "py-5" })
+    _c(
+      "div",
+      { staticClass: "flex-1" },
+      [
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.addingItem,
+                expression: "!addingItem"
+              }
+            ],
+            staticClass:
+              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+            on: {
+              click: function($event) {
+                _vm.addingItem = true
+              }
+            }
+          },
+          [_vm._v("\n            Add an Item\n        ")]
+        ),
+        _vm._v(" "),
+        _c("add-item", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.addingItem,
+              expression: "addingItem"
+            }
+          ],
+          on: { "item-added": _vm.addItem }
+        }),
+        _vm._v(" "),
+        _c("running-total", { attrs: { items: _vm.order_items } }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.order_items.length > 0,
+                expression: "order_items.length > 0"
+              }
+            ],
+            staticClass: "flex flex-col"
+          },
+          [
+            _c("label", [_vm._v("Order Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.order_email,
+                  expression: "order_email"
+                }
+              ],
+              attrs: { name: "order_email" },
+              domProps: { value: _vm.order_email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.order_email = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", [_vm._v("Order Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.order_name,
+                  expression: "order_name"
+                }
+              ],
+              attrs: { name: "order_name" },
+              domProps: { value: _vm.order_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.order_name = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+                on: { click: _vm.submitOrder }
+              },
+              [_vm._v("\n                Submit Order\n            ")]
+            )
+          ]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -32122,14 +32263,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*********************************************!*\
   !*** ./resources/js/components/AddItem.vue ***!
   \*********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddItem_vue_vue_type_template_id_38cae28e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddItem.vue?vue&type=template&id=38cae28e& */ "./resources/js/components/AddItem.vue?vue&type=template&id=38cae28e&");
 /* harmony import */ var _AddItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddItem.vue?vue&type=script&lang=js& */ "./resources/js/components/AddItem.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AddItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AddItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -32159,7 +32301,7 @@ component.options.__file = "resources/js/components/AddItem.vue"
 /*!**********************************************************************!*\
   !*** ./resources/js/components/AddItem.vue?vue&type=script&lang=js& ***!
   \**********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

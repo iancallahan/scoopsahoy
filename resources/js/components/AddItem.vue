@@ -66,13 +66,22 @@
         },
         methods: {
             addItem: function(){
-                this.$emit('itemAdded',this.item)
+                this.$emit('item-added',this.item);
+                this.rockyroad = 0,
+                this.cookiesandcream = 0,
+                this.vanilla = 0,
+                this.chocolate = 0,
+                this.sprinkles = 0,
+                this.caramel = 0,
+                this.eminems = 0,
+                this.cherries = 0,
+                this.cone = false,
+                this.name = ''
             }
         },
         computed: {
             max_scoops: function () {
                 var scoops = this.item.rockyroad + this.item.cookiesandcream + this.item.vanilla + this.item.chocolate;
-                console.log(scoops);
                 if(3 - scoops < 0){
                     return 0;
                 }

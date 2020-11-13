@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\OrderItem;
 
 class OrderController extends Controller
 {
@@ -34,7 +35,24 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'order_email' => 'required|email:rfc',
+            'order_name' => 'required',
+        ]);
+        
+        $order = new Order;
+        $order->name = $request->order_name;
+        $order->ipaddress = $request->ip();
+        $order->email = $request->order_email;
+
+        foreach($request->order_items as $item) {
+            $item = new OrderItem($item);
+            $order->items()->save($item);
+        }
+
+        return response()->json([
+            'status' => 'Success! Ice Cream is coming your way!',
+        ]);
     }
 
     /**
