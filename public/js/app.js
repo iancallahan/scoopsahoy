@@ -1914,9 +1914,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      flavors: ['rockyroad', 'cookiesandcream', 'chocolate', 'vanilla'],
+      toppings: ['sprinkles', 'caramel', 'eminems', 'cherries'],
+      containers: ['bowl', 'cone'],
+      order_name: '',
+      order_items: []
+    };
   }
 });
 
@@ -19570,7 +19594,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._t("default")], 2)
+  return _c("div", { staticClass: "flex flex-col h-screen" }, [
+    _c("header", { staticClass: "py-5" }, [_vm._t("default")], 2),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex-1" }, [
+      _c(
+        "div",
+        { staticClass: "py-5" },
+        _vm._l(_vm.flavors, function(flavor) {
+          return _c("div", [
+            _c("label", [_vm._v(_vm._s(flavor))]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "number" } })
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "py-5" },
+        _vm._l(_vm.toppings, function(topping) {
+          return _c("div", [
+            _c("label", [_vm._v(_vm._s(topping))]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "number" } })
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("footer", { staticClass: "py-5" })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
